@@ -1,5 +1,5 @@
 import axios from 'axios'
 
 export const axiosInstance = axios.create({
-    baseURL: "https://flowkite.onrender.com/app/"
+    baseURL: "https://flowkitebackend.herokuapp.com/app/"
 })

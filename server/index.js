@@ -51,9 +51,7 @@ app.use('/app', adventureRoute)
 app.get('/', (req, res)=>{
     res.send('checking if')
 })
-app.get('/now', (req, res)=>{
-    res.send("nice trying")
-})
+
 // error handling middleware
 app.use((err, req, res, next)=>{
     const status = err.status || "404";
