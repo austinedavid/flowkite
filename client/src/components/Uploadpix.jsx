@@ -6,7 +6,7 @@ import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/
 import axios from 'axios';
 import {useNavigate} from 'react-router-dom'
 import {closeProfile} from '../Slice/ProfileSlice'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import {axiosInstance} from '../config'
 
 
@@ -20,6 +20,7 @@ const Uploadpix = () => {
   const [imgProgress, setimgProgress] = useState()
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const {currentUser} = useSelector((state)=>state.user)
   // @here we set up our upload in the google croud
   const uploadToGoogle = ()=>{
 
@@ -71,8 +72,14 @@ const Uploadpix = () => {
   // @here making use of axios, we make a post request to our data base
   const uploadToDB = async(e)=>{
       e.preventDefault()
-     
-      await axiosInstance.post('/createPix', {imgUrl, desc}, {withCredentials: true})
+       // creating our header now
+       const config = {
+        headers:{
+          "Content-Type": "application/json",
+          token: `Bearer ${currentUser.token}`
+        }
+      }
+      await axiosInstance.post('/createPix', {imgUrl, desc}, config)
       
       dispatch(closeProfile())
       navigate('/')

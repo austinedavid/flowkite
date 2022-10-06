@@ -6,7 +6,7 @@ import axios from 'axios';
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import {Navigate, useNavigate} from 'react-router-dom'
 import {closeProfile} from '../Slice/ProfileSlice'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import {axiosInstance} from '../config'
 
 
@@ -18,6 +18,7 @@ const Uploadvideo = () => {
   const[desc, setdesc] = useState()
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const {currentUser} = useSelector((state)=>state.user)
   // here we execute the upload to google located below the useeffect
   const uploadToGoogle = ()=>{
     const storage = getStorage(app)
@@ -61,7 +62,14 @@ const Uploadvideo = () => {
 
   // here we upload to our database
   const handleUpload = async()=>{
-    const videoSent = await axiosInstance.post('/createVideo', {videoUrl, desc}, {withCredentials: true})
+     // creating our header now
+     const config = {
+      headers:{
+        "Content-Type": "application/json",
+        token: `Bearer ${currentUser.token}`
+      }
+    }
+    const videoSent = await axiosInstance.post('/createVideo', {videoUrl, desc}, config)
     dispatch(closeProfile())
     navigate('/videos')
     window.location.reload(false)

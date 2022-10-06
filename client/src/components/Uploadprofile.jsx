@@ -66,7 +66,14 @@ const Uploadprofile = () => {
       if(name === ''){
         setname(currentUser.name)
       }
-        const userUpdate = await axiosInstance.put(`/update/${currentUser._id}`, {name, imgUrl,}, {withCredentials: true}).then((res)=>{
+      // creating our header now
+      const config = {
+        headers:{
+          "Content-Type": "application/json",
+          token: `Bearer ${currentUser.token}`
+        }
+      }
+        const userUpdate = await axiosInstance.put(`/update/${currentUser._id}`, {name, imgUrl,}, config).then((res)=>{
             dispatch(userSuccess(res.data))
             setalertsuccess(true)
             setimgprogress('')
