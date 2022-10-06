@@ -36,7 +36,7 @@ const Adventure = () => {
   // making use of use dispatch and selector from react-redux
   const dispatch = useDispatch()
   const {adventure,loading} = useSelector((state)=>state.adventure)
-
+  const {currentUser} = useSelector((state)=>state.user)
 useEffect(()=>{
   const fetchingAdventure = async()=>{
     dispatch(adventurePending())
@@ -98,7 +98,13 @@ useEffect(()=>{
 
 // here we upload our adventures to the data base
 const handleUploadAdventures = async()=>{
-  const adventurePost = await axiosInstance.post('/createAdventure', {imgUrl, heading, desc}, {withCredentials: true}).then((res)=>{
+  const config = {
+    headers:{
+      "Content-Type": "application/json",
+      token: `Bearer ${currentUser.token}`
+    }
+  }
+  const adventurePost = await axiosInstance.post('/createAdventure', {imgUrl, heading, desc}, config).then((res)=>{
     console.log(res.data)
   })
 
