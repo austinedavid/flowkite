@@ -33,8 +33,14 @@ const AdventureCard = ({adventure, setdesc, setheading, settoUpdata, setdeleteId
     // here we handle our delete functionality
     // handing changes
     const handleDelete = async()=>{
+      const config = {
+        headers:{
+          "Content-Type": "application/json",
+          token: `Bearer ${currentUser.token}`
+        }
+      }
       try {
-        await axiosInstance.delete(`/deleteAdventure/${adventure._id}`, {withCredentials: true}).then((res)=>{
+        await axiosInstance.delete(`/deleteAdventure/${adventure._id}`, config).then((res)=>{
           window.location.reload(false)
         })
       } catch (error) {

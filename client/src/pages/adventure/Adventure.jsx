@@ -120,7 +120,13 @@ const clearInputs = ()=>{
 
 // here we handle our
 const handleUpdateAdventures = async()=>{
-  await axiosInstance.put(`/updateAdventure/${deleteId}`, {imgUrl, heading, desc}, {withCredentials: true}).then((res)=>{
+  const config = {
+    headers:{
+      "Content-Type": "application/json",
+      token: `Bearer ${currentUser.token}`
+    }
+  }
+  await axiosInstance.put(`/updateAdventure/${deleteId}`, {imgUrl, heading, desc}, config).then((res)=>{
     setalertMessage(res.data)
     
     window.location.reload(false)

@@ -45,7 +45,13 @@ const Pixcard = ({pix,setclicked, clicked}) => {
 
     // here we make a put request to handle like functionality
     const handleLikes = async()=>{
-      await axiosInstance.put(`/picturelike/${pix._id}`, {withCredentials: true}).then((res)=>console.log(res.data))
+      const config = {
+        headers:{
+          "Content-Type": "application/json",
+          token: `Bearer ${currentUser.token}`
+        }
+      }
+      await axiosInstance.put(`/picturelike/${pix._id}`, config).then((res)=>console.log(res.data))
 
     setclicked(!clicked)
       
@@ -53,13 +59,25 @@ const Pixcard = ({pix,setclicked, clicked}) => {
 
     // here we make a put request to handle dislike functionality
     const handleDislikes = async()=>{
-      await axiosInstance.put(`/picturedislike/${pix._id}`, {withCredentials: true})
+      const config = {
+        headers:{
+          "Content-Type": "application/json",
+          token: `Bearer ${currentUser.token}`
+        }
+      }
+      await axiosInstance.put(`/picturedislike/${pix._id}`, config)
       setclicked(!clicked)
     }
 
     // here we make our delete request to delete a particular post
     const deletePix = async()=>{
-      await axiosInstance.delete(`/deletePix/${pix._id}`, {withCredentials: true}).then((res)=>{
+      const config = {
+        headers:{
+          "Content-Type": "application/json",
+          token: `Bearer ${currentUser.token}`
+        }
+      }
+      await axiosInstance.delete(`/deletePix/${pix._id}`, config).then((res)=>{
         setdeleteMessage(res.data)
         setdeletesuccessful(true)
         window.location.reload(false)

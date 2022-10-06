@@ -32,21 +32,39 @@ const Videocard = ({video, clicked, setclicked}) => {
 
     // here we handle the like functionality
     const handleLike = async()=>{
-        const sendlike = await axiosInstance.put(`/videolike/${video._id}`, {withCredentials: true})
+      const config = {
+        headers:{
+          "Content-Type": "application/json",
+          token: `Bearer ${currentUser.token}`
+        }
+      }
+        const sendlike = await axiosInstance.put(`/videolike/${video._id}`, config)
             setclicked(!clicked)
         
     }
     //  here we handle dislikes of a particular video here
     const handleDislike = async()=>{
-        const senddislike = await axiosInstance.put(`/videodislike/${video._id}`, {withCredentials: true})
+      const config = {
+        headers:{
+          "Content-Type": "application/json",
+          token: `Bearer ${currentUser.token}`
+        }
+      }
+        const senddislike = await axiosInstance.put(`/videodislike/${video._id}`, config)
         setclicked(!clicked)
         
     }
 
     //  here we handle the delete functionality of our video
     const handleDelete = async()=>{
+      const config = {
+        headers:{
+          "Content-Type": "application/json",
+          token: `Bearer ${currentUser.token}`
+        }
+      }
       try {
-        await axiosInstance.delete(`/deleteVideo/${video._id}`, {withCredentials: true}).then((res)=>{
+        await axiosInstance.delete(`/deleteVideo/${video._id}`, config).then((res)=>{
           window.location.reload(false)
           setdeleteMessage("you have successfully deleted your video")
           setdeletesuccessful(true)
