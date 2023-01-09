@@ -65,7 +65,7 @@ const Pixcard = ({pix,setclicked, clicked}) => {
           token: `Bearer ${currentUser.token}`
         }
       }
-      await axiosInstance.put(`/picturedislike/${pix._id}`, config)
+      await axiosInstance.put(`/picturedislike/${pix._id}`, config).then((res)=> console.log(res.data))
       setclicked(!clicked)
     }
 

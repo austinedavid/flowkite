@@ -38,7 +38,7 @@ const config = {
             const login = await axiosInstance.post("/signin", {
                 email, password
             }, config).then((res)=>{
-                console.log(res)
+                console.log(res.data)
                 dispatch(userSuccess(res.data))
                 if(res.status === 200){
                     navigate('/')

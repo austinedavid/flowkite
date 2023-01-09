@@ -18,6 +18,7 @@ const Navbar = () => {
     const {currentUser} = useSelector((state)=>state.user)
     const dispatch = useDispatch()
     const [logOutShow, setlogOutShow] = useState(false)
+    const[lightmode, setlightmode ] = useState(false)
 
     // handling logging out
     const handleLoggingOut = ()=>{

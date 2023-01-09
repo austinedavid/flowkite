@@ -22,6 +22,7 @@ const Container = styled.div`
 const Main = styled.div`
 
 `
+const user = false
 
 function App() {
   const {darkmodetheme} = useSelector((state)=> state.settheme)
@@ -36,7 +37,7 @@ function App() {
           
           <Routes>
             <Route path='login' element={<Login/>}/>
-            <Route path='/register' element={<Register/>}/>
+            <Route path='register' element={<Register/>}/>
             <Route path='/' element={<Protected><Home/></Protected>}/>
             <Route path='videos' element={<Protected><Videos/></Protected>}/>
             <Route path='adventure' element={<Protected><Adventure/></Protected>}/>
